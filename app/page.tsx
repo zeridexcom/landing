@@ -127,7 +127,7 @@ export default function Home() {
 
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount: 100,
+amount: 149900,
         currency: 'INR',
         name: 'Edufast Mega Combo Bundle',
         description: '1000+ Courses, 30,000+ Assets, Lifetime Access',
@@ -226,7 +226,7 @@ export default function Home() {
           </h2>
           <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
             1000+ Courses, 30,000+ Assets, Lifetime Access. Today only for{' '}
-            <span className="font-price-display text-price-display text-primary-container">₹1</span>.
+            <span className="font-price-display text-price-display text-primary-container">₹1,499</span>.
           </p>
 
           <button
@@ -235,7 +235,7 @@ export default function Home() {
             className="buy-button w-full md:w-auto min-h-[56px] px-8 py-4 bg-gradient-to-r from-gold-gradient-start to-gold-gradient-end rounded-full font-label-bold text-label-bold text-on-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] shadow-[0_4px_14px_rgba(249,115,22,0.4)] flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <span className="material-symbols-outlined">shopping_cart</span>
-            {loading ? 'Processing...' : 'CLAIM OFFER NOW - ₹1'}
+            {loading ? 'Processing...' : 'CLAIM OFFER NOW - ₹1,499'}
           </button>
           {paymentStatus === 'success' && (
             <div className="w-full md:w-auto px-4 py-3 rounded-lg bg-green-600 text-white text-center font-semibold">
@@ -298,9 +298,9 @@ export default function Home() {
           <h3 className="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface text-center">Secure Your Future Today</h3>
           <div className="flex items-center gap-4">
             <span className="text-on-surface-variant line-through font-display-xl text-xl opacity-60">₹2,00,000</span>
-            <span className="font-price-display text-price-display text-gold-gradient-start">₹1</span>
+            <span className="font-price-display text-price-display text-gold-gradient-start">₹1,499</span>
           </div>
-          <p className="text-on-surface-variant text-sm">You save ₹1,98,501 (99% off)</p>
+          <p className="text-on-surface-variant text-sm">You save ₹1,499,98,501 (99% off)</p>
 
           <button
             onClick={handlePayment}
@@ -308,7 +308,7 @@ export default function Home() {
             className="buy-button w-full md:w-auto min-h-[56px] px-8 py-4 bg-gradient-to-r from-gold-gradient-start to-gold-gradient-end rounded-full font-label-bold text-label-bold text-on-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] shadow-[0_4px_14px_rgba(249,115,22,0.4)] flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <span className="material-symbols-outlined">bolt</span>
-            {loading ? 'Processing...' : 'CLAIM OFFER NOW - ₹1'}
+            {loading ? 'Processing...' : 'CLAIM OFFER NOW - ₹1,499'}
           </button>
           <p className="font-body-md text-body-md text-urgency-red mt-2">Hurry! Offer ends in {String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}</p>
         </section>
@@ -327,7 +327,7 @@ export default function Home() {
               <div className="text-4xl mb-3">🎨</div>
               <h4 className="text-on-surface font-bold mb-2">Freelancing</h4>
               <p className="text-on-surface-variant text-sm mb-3">Graphic Design, Video Editing, Web Development</p>
-              <p className="text-green-500 font-bold text-lg">₹30K - ₹1L/month</p>
+              <p className="text-green-500 font-bold text-lg">₹30K - ₹1,499L/month</p>
             </div>
             <div className="bg-surface-dark p-6 rounded-xl border border-surface-container-high text-center">
               <div className="text-4xl mb-3">📱</div>
@@ -339,7 +339,7 @@ export default function Home() {
               <div className="text-4xl mb-3">💼</div>
               <h4 className="text-on-surface font-bold mb-2">Digital Marketing Jobs</h4>
               <p className="text-on-surface-variant text-sm mb-3">SEO, Social Media, Ads Management</p>
-              <p className="text-green-500 font-bold text-lg">₹4LPA - ₹12LPA</p>
+              <p className="text-green-500 font-bold text-lg">₹4LPA - ₹1,4992LPA</p>
             </div>
           </div>
 
@@ -442,7 +442,7 @@ export default function Home() {
             className="buy-button w-full md:w-auto min-h-[56px] px-12 py-4 bg-gradient-to-r from-gold-gradient-start to-gold-gradient-end rounded-full font-label-bold text-label-bold text-on-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] shadow-[0_4px_14px_rgba(249,115,22,0.4)] flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed mx-auto"
           >
             <span className="material-symbols-outlined">rocket_launch</span>
-            {loading ? 'Processing...' : 'START EARNING NOW - ₹1'}
+            {loading ? 'Processing...' : 'START EARNING NOW - ₹1,499'}
           </button>
         </section>
       </main>
@@ -598,7 +598,7 @@ export default function Home() {
         >
           <span className="material-symbols-outlined">shopping_cart</span>
           <span className="font-label-bold text-label-bold">
-            {loading ? 'Processing...' : 'Claim Offer - ₹1'}
+            {loading ? 'Processing...' : 'Claim Offer - ₹1,499'}
           </span>
         </div>
       </nav>

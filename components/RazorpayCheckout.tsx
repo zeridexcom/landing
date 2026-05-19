@@ -48,7 +48,7 @@ export default function RazorpayCheckout({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          amount: 100, // ₹1 in paise (testing)
+          amount: 149900, // ₹1 in paise (testing)
           currency: 'INR',
           email,
         }),
@@ -58,7 +58,7 @@ export default function RazorpayCheckout({
 
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount: 100,
+        amount: 149900,
         currency: 'INR',
         name: 'Edufast Mega Combo Bundle',
         description: '1000+ Courses, 30,000+ Assets, Lifetime Access',
