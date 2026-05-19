@@ -11,26 +11,22 @@ export default function ExitPopup() {
 
   useEffect(() => {
     const handleMouseLeave = (e: MouseEvent) => {
-      // Only trigger when mouse moves to top of page (exit intent)
       if (e.clientY < 10 && !shown.current) {
         shown.current = true;
         setShow(true);
       }
     };
 
-    // Mobile: trigger on scroll up fast or back button attempt
     let lastScrollY = window.scrollY;
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       if (currentScrollY < lastScrollY && currentScrollY < 100 && !shown.current) {
-        // Scrolling up near top — possible exit intent on mobile
         shown.current = true;
         setShow(true);
       }
       lastScrollY = currentScrollY;
     };
 
-    // Also trigger after 30 seconds if not shown yet
     const timeout = setTimeout(() => {
       if (!shown.current) {
         shown.current = true;
@@ -51,8 +47,7 @@ export default function ExitPopup() {
   const handleSubmit = () => {
     if (!name.trim() || !phone.trim()) return;
     setSubmitted(true);
-    // Auto close after 2 seconds
-    setTimeout(() => setShow(false), 2000);
+    setTimeout(() => setShow(false), 3000);
   };
 
   const handleClose = () => {
@@ -92,7 +87,6 @@ export default function ExitPopup() {
           animation: 'slideUp 0.3s ease-out',
         }}
       >
-        {/* Close button */}
         <button
           onClick={handleClose}
           style={{
@@ -118,24 +112,22 @@ export default function ExitPopup() {
 
         {!submitted ? (
           <>
-            {/* Header */}
             <div style={{
               background: 'linear-gradient(135deg, #F97316, #FBBF24)',
               padding: '20px',
               textAlign: 'center',
             }}>
               <p style={{ color: '#552100', fontSize: '14px', fontWeight: '700', margin: '0 0 4px 0' }}>
-                WAIT! DON'T MISS THIS
+                BEFORE YOU GO!
               </p>
               <p style={{ color: '#552100', fontSize: '22px', fontWeight: '800', margin: 0 }}>
-                Get ₹500 Extra OFF
+                Upcoming Mega Bundles 🚀
               </p>
             </div>
 
-            {/* Body */}
             <div style={{ padding: '20px' }}>
               <p style={{ color: '#dce2f7', fontSize: '14px', textAlign: 'center', margin: '0 0 16px 0' }}>
-                Enter your details and we'll send you an <strong>exclusive ₹500 discount code</strong> on WhatsApp!
+                We're launching <strong>new mega bundles every month</strong> with fresh courses, tools, and resources. Be the first to know!
               </p>
 
               {/* Name input */}
@@ -178,7 +170,6 @@ export default function ExitPopup() {
                 }}
               />
 
-              {/* Submit button */}
               <button
                 onClick={handleSubmit}
                 style={{
@@ -194,23 +185,22 @@ export default function ExitPopup() {
                   boxShadow: '0 4px 14px rgba(249,115,22,0.4)',
                 }}
               >
-                GET MY ₹500 DISCOUNT
+                NOTIFY ME FIRST
               </button>
 
               <p style={{ color: '#a78b7d', fontSize: '11px', textAlign: 'center', margin: '10px 0 0 0' }}>
-                We'll only send you the discount code. No spam.
+                Get early access & exclusive offers. No spam, ever.
               </p>
             </div>
           </>
         ) : (
-          /* Success state */
           <div style={{ padding: '40px 20px', textAlign: 'center' }}>
             <div style={{ fontSize: '48px', marginBottom: '12px' }}>🎉</div>
             <p style={{ color: '#dce2f7', fontSize: '18px', fontWeight: '700', margin: '0 0 8px 0' }}>
-              You're In!
+              You're On The List!
             </p>
             <p style={{ color: '#a78b7d', fontSize: '14px', margin: 0 }}>
-              Check WhatsApp for your discount code.
+              We'll notify you on WhatsApp about new bundles first.
             </p>
           </div>
         )}
