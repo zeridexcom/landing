@@ -26,6 +26,7 @@ export default function RazorpayCheckout({
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [showEmailInput, setShowEmailInput] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState<'idle' | 'success' | 'failed'>('idle');
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -63,21 +64,34 @@ export default function RazorpayCheckout({
         description: '1000+ Courses, 30,000+ Assets, Lifetime Access',
         order_id: orderId,
         handler: async (response: any) => {
-          const verifyResponse = await fetch('/api/verify-payment', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              ...response,
-              email,
-            }),
-          });
+          setLoading(true);
+          try {
+            const verifyResponse = await fetch('/api/verify-payment', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                ...response,
+                email,
+              }),
+            });
 
-          const result = await verifyResponse.json();
+            const result = await verifyResponse.json();
 
-          if (result.success) {
-            router.push('/success');
-          } else {
-            alert('Payment verification failed. Please contact support.');
+            if (result.success) {
+              setPaymentStatus('success');
+              setTimeout(() => router.push('/success'), 2000);
+            } else {
+              setPaymentStatus('failed');
+            }
+          } catch (error) {
+            setPaymentStatus('failed');
+          } finally {
+            setLoading(false);
+          }
+        },
+        modal: {
+          ondismiss: function() {
+            setLoading(false);
           }
         },
         prefill: {
@@ -100,6 +114,16 @@ export default function RazorpayCheckout({
 
   return (
     <div className="flex flex-col items-center gap-4">
+      {paymentStatus === 'success' && (
+        <div className="w-full md:w-auto min-w-[300px] px-4 py-3 rounded-lg bg-green-600 text-white text-center font-semibold">
+          ✓ Payment Successful! Redirecting...
+        </div>
+      )}
+      {paymentStatus === 'failed' && (
+        <div className="w-full md:w-auto min-w-[300px] px-4 py-3 rounded-lg bg-red-600 text-white text-center font-semibold">
+          ✕ Payment Failed. Please try again.
+        </div>
+      )}
       {showEmailInput && (
         <input
           type="email"
@@ -112,7 +136,7 @@ export default function RazorpayCheckout({
       )}
       <button
         onClick={handlePayment}
-        disabled={loading}
+        disabled={loading || paymentStatus === 'success'}
         className={`buy-button ${buttonClassName}`}
       >
         {showIcon && <span className="material-symbols-outlined">{iconName}</span>}
