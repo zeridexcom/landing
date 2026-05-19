@@ -1,7 +1,1 @@
-{
-  "functions": {
-    "app/api/webhook/route.ts": {
-      "bodySizeLimit": "1mb"
-    }
-  }
-}
+{}
