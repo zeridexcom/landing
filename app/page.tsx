@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import MobileNotification from '@/components/MobileNotification';
 import DesktopNotification from '@/components/DesktopNotification';
+import ExitPopup from '@/components/ExitPopup';
 
 declare global {
   interface Window {
@@ -430,6 +431,9 @@ export default function Home() {
       {/* Live Notifications */}
       <MobileNotification />
       <DesktopNotification />
+
+      {/* Exit Intent Popup */}
+      <ExitPopup />
 
       {/* Footer */}
       <footer className="mt-16 bg-surface-container-lowest py-8 border-t border-surface-container-high w-full px-gutter">
