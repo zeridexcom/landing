@@ -120,7 +120,7 @@ export default function Home() {
       const orderResponse = await fetch('/api/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: 100, currency: 'INR', email: email || '' }),
+        body: JSON.stringify({ amount: 149900, currency: 'INR', email: email || '' }),
       });
 
       const { orderId } = await orderResponse.json();
