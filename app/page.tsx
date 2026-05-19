@@ -85,6 +85,7 @@ export default function Home() {
   const [paymentData, setPaymentData] = useState<any>(null);
   const [time, setTime] = useState(299);
   const [spotsLeft, setSpotsLeft] = useState(12);
+  const [paymentStatus, setPaymentStatus] = useState<'idle' | 'success' | 'failed'>('idle');
 
   useEffect(() => {
     setSpotsLeft(Math.floor(Math.random() * 15) + 5);
@@ -132,9 +133,13 @@ export default function Home() {
         description: '1000+ Courses, 30,000+ Assets, Lifetime Access',
         order_id: orderId,
         handler: async (response: any) => {
-          // Payment done — now ask for email
           setPaymentData(response);
           setShowEmailPopup(true);
+        },
+        modal: {
+          ondismiss: function() {
+            setLoading(false);
+          }
         },
         prefill: email ? { email } : undefined,
         theme: { color: '#F97316' },
@@ -165,13 +170,14 @@ export default function Home() {
       const result = await verifyResponse.json();
 
       if (result.success) {
-        router.push('/success');
+        setPaymentStatus('success');
+        setTimeout(() => router.push('/success'), 2000);
       } else {
-        alert('Verification failed. Contact support with your payment ID.');
+        setPaymentStatus('failed');
       }
     } catch (error) {
       console.error('Verify error:', error);
-      alert('Something went wrong. Contact support.');
+      setPaymentStatus('failed');
     } finally {
       setLoading(false);
     }
@@ -220,17 +226,27 @@ export default function Home() {
           </h2>
           <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
             1000+ Courses, 30,000+ Assets, Lifetime Access. Today only for{' '}
-            <span className="font-price-display text-price-display text-primary-container">₹1,499</span>.
+            <span className="font-price-display text-price-display text-primary-container">₹1</span>.
           </p>
 
           <button
             onClick={handlePayment}
-            disabled={loading}
+            disabled={loading || paymentStatus === 'success'}
             className="buy-button w-full md:w-auto min-h-[56px] px-8 py-4 bg-gradient-to-r from-gold-gradient-start to-gold-gradient-end rounded-full font-label-bold text-label-bold text-on-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] shadow-[0_4px_14px_rgba(249,115,22,0.4)] flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <span className="material-symbols-outlined">shopping_cart</span>
-            {loading ? 'Processing...' : 'CLAIM OFFER NOW - ₹1,499'}
+            {loading ? 'Processing...' : 'CLAIM OFFER NOW - ₹1'}
           </button>
+          {paymentStatus === 'success' && (
+            <div className="w-full md:w-auto px-4 py-3 rounded-lg bg-green-600 text-white text-center font-semibold">
+              ✓ Payment Successful! Redirecting...
+            </div>
+          )}
+          {paymentStatus === 'failed' && (
+            <div className="w-full md:w-auto px-4 py-3 rounded-lg bg-red-600 text-white text-center font-semibold">
+              ✕ Payment Failed. Please try again.
+            </div>
+          )}
           <p className="text-urgency-red font-bold text-sm animate-pulse" suppressHydrationWarning>Only {spotsLeft} spots left at this price!</p>
         </section>
 
@@ -282,7 +298,7 @@ export default function Home() {
           <h3 className="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface text-center">Secure Your Future Today</h3>
           <div className="flex items-center gap-4">
             <span className="text-on-surface-variant line-through font-display-xl text-xl opacity-60">₹2,00,000</span>
-            <span className="font-price-display text-price-display text-gold-gradient-start">₹1,499</span>
+            <span className="font-price-display text-price-display text-gold-gradient-start">₹1</span>
           </div>
           <p className="text-on-surface-variant text-sm">You save ₹1,98,501 (99% off)</p>
 
@@ -292,7 +308,7 @@ export default function Home() {
             className="buy-button w-full md:w-auto min-h-[56px] px-8 py-4 bg-gradient-to-r from-gold-gradient-start to-gold-gradient-end rounded-full font-label-bold text-label-bold text-on-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] shadow-[0_4px_14px_rgba(249,115,22,0.4)] flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <span className="material-symbols-outlined">bolt</span>
-            {loading ? 'Processing...' : 'CLAIM OFFER NOW - ₹1,499'}
+            {loading ? 'Processing...' : 'CLAIM OFFER NOW - ₹1'}
           </button>
           <p className="font-body-md text-body-md text-urgency-red mt-2">Hurry! Offer ends in {String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}</p>
         </section>
@@ -426,7 +442,7 @@ export default function Home() {
             className="buy-button w-full md:w-auto min-h-[56px] px-12 py-4 bg-gradient-to-r from-gold-gradient-start to-gold-gradient-end rounded-full font-label-bold text-label-bold text-on-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] shadow-[0_4px_14px_rgba(249,115,22,0.4)] flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed mx-auto"
           >
             <span className="material-symbols-outlined">rocket_launch</span>
-            {loading ? 'Processing...' : 'START EARNING NOW - ₹1,499'}
+            {loading ? 'Processing...' : 'START EARNING NOW - ₹1'}
           </button>
         </section>
       </main>
@@ -582,7 +598,7 @@ export default function Home() {
         >
           <span className="material-symbols-outlined">shopping_cart</span>
           <span className="font-label-bold text-label-bold">
-            {loading ? 'Processing...' : 'Claim Offer - ₹1,499'}
+            {loading ? 'Processing...' : 'Claim Offer - ₹1'}
           </span>
         </div>
       </nav>
