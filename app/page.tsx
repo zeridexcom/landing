@@ -81,7 +81,8 @@ export default function Home() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
-  const [showEmailInput, setShowEmailInput] = useState(false);
+  const [showEmailPopup, setShowEmailPopup] = useState(false);
+  const [paymentData, setPaymentData] = useState<any>(null);
   const [time, setTime] = useState(299);
   const [spotsLeft, setSpotsLeft] = useState(12);
 
@@ -112,18 +113,13 @@ export default function Home() {
   const seconds = time % 60;
 
   const handlePayment = async () => {
-    if (!email) {
-      setShowEmailInput(true);
-      return;
-    }
-
     setLoading(true);
 
     try {
       const orderResponse = await fetch('/api/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: 149900, currency: 'INR', email }),
+        body: JSON.stringify({ amount: 149900, currency: 'INR', email: email || '' }),
       });
 
       const { orderId } = await orderResponse.json();
@@ -136,21 +132,11 @@ export default function Home() {
         description: '1000+ Courses, 30,000+ Assets, Lifetime Access',
         order_id: orderId,
         handler: async (response: any) => {
-          const verifyResponse = await fetch('/api/verify-payment', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ...response, email }),
-          });
-
-          const result = await verifyResponse.json();
-
-          if (result.success) {
-            router.push('/success');
-          } else {
-            alert('Payment verification failed. Please contact support.');
-          }
+          // Payment done — now ask for email
+          setPaymentData(response);
+          setShowEmailPopup(true);
         },
-        prefill: { email },
+        prefill: email ? { email } : undefined,
         theme: { color: '#F97316' },
       };
 
@@ -159,6 +145,33 @@ export default function Home() {
     } catch (error) {
       console.error('Payment error:', error);
       alert('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleEmailSubmit = async () => {
+    if (!email.trim()) return;
+
+    setLoading(true);
+
+    try {
+      const verifyResponse = await fetch('/api/verify-payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...paymentData, email }),
+      });
+
+      const result = await verifyResponse.json();
+
+      if (result.success) {
+        router.push('/success');
+      } else {
+        alert('Verification failed. Contact support with your payment ID.');
+      }
+    } catch (error) {
+      console.error('Verify error:', error);
+      alert('Something went wrong. Contact support.');
     } finally {
       setLoading(false);
     }
@@ -425,8 +438,8 @@ export default function Home() {
       {/* Exit Intent Popup */}
       <ExitPopup />
 
-      {/* Email Popup Modal */}
-      {showEmailInput && (
+      {/* Email Popup Modal — shown AFTER payment */}
+      {showEmailPopup && (
         <div
           style={{
             position: 'fixed',
@@ -439,10 +452,9 @@ export default function Home() {
             alignItems: 'center',
             justifyContent: 'center',
             padding: '16px',
-            background: 'rgba(0,0,0,0.7)',
-            backdropFilter: 'blur(4px)',
+            background: 'rgba(0,0,0,0.85)',
+            backdropFilter: 'blur(8px)',
           }}
-          onClick={() => setShowEmailInput(false)}
         >
           <div
             onClick={(e) => e.stopPropagation()}
@@ -458,12 +470,15 @@ export default function Home() {
           >
             {/* Header */}
             <div style={{
-              background: 'linear-gradient(135deg, #F97316, #FBBF24)',
+              background: 'linear-gradient(135deg, #22c55e, #16a34a)',
               padding: '20px',
               textAlign: 'center',
             }}>
-              <p style={{ color: '#552100', fontSize: '18px', fontWeight: '800', margin: 0 }}>
-                Almost There!
+              <p style={{ color: '#fff', fontSize: '14px', fontWeight: '700', margin: '0 0 4px 0' }}>
+                PAYMENT SUCCESSFUL!
+              </p>
+              <p style={{ color: '#fff', fontSize: '20px', fontWeight: '800', margin: 0 }}>
+                Get Your Bundle Link
               </p>
             </div>
 
@@ -471,8 +486,8 @@ export default function Home() {
             <div style={{ padding: '20px' }}>
               {/* Warning */}
               <div style={{
-                background: 'rgba(239, 68, 68, 0.1)',
-                border: '1px solid rgba(239, 68, 68, 0.3)',
+                background: 'rgba(249, 115, 22, 0.1)',
+                border: '1px solid rgba(249, 115, 22, 0.3)',
                 borderRadius: '10px',
                 padding: '12px',
                 marginBottom: '16px',
@@ -480,19 +495,20 @@ export default function Home() {
                 alignItems: 'center',
                 gap: '10px',
               }}>
-                <span className="material-symbols-outlined" style={{ color: '#ef4444', fontSize: '20px' }}>warning</span>
-                <p style={{ color: '#fca5a5', fontSize: '13px', margin: 0, lineHeight: '1.4' }}>
-                  The bundle download link will be sent to your email. Please enter a valid email address.
+                <span className="material-symbols-outlined" style={{ color: '#f97316', fontSize: '20px' }}>mail</span>
+                <p style={{ color: '#fdba74', fontSize: '13px', margin: 0, lineHeight: '1.4' }}>
+                  Your bundle download link will be sent to this email. Please enter a valid email.
                 </p>
               </div>
 
               {/* Email input */}
               <input
                 type="email"
-                placeholder="Enter your email"
+                placeholder="Enter your email to receive bundle"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 autoFocus
+                onKeyDown={(e) => { if (e.key === 'Enter') handleEmailSubmit(); }}
                 style={{
                   width: '100%',
                   padding: '14px 16px',
@@ -509,27 +525,27 @@ export default function Home() {
 
               {/* Submit button */}
               <button
-                onClick={handlePayment}
-                disabled={loading || !email}
+                onClick={handleEmailSubmit}
+                disabled={loading || !email.trim()}
                 style={{
                   width: '100%',
                   padding: '14px',
                   borderRadius: '10px',
                   border: 'none',
-                  background: (loading || !email) ? '#555' : 'linear-gradient(to right, #F97316, #FBBF24)',
-                  color: '#552100',
+                  background: (loading || !email.trim()) ? '#555' : 'linear-gradient(to right, #22c55e, #16a34a)',
+                  color: '#fff',
                   fontSize: '16px',
                   fontWeight: '700',
-                  cursor: (loading || !email) ? 'not-allowed' : 'pointer',
-                  boxShadow: '0 4px 14px rgba(249,115,22,0.4)',
-                  opacity: (loading || !email) ? 0.6 : 1,
+                  cursor: (loading || !email.trim()) ? 'not-allowed' : 'pointer',
+                  boxShadow: '0 4px 14px rgba(34,197,94,0.4)',
+                  opacity: (loading || !email.trim()) ? 0.6 : 1,
                 }}
               >
-                {loading ? 'Processing...' : 'Proceed to Payment - ₹1,499'}
+                {loading ? 'Sending...' : 'SEND MY BUNDLE LINK'}
               </button>
 
               <p style={{ color: '#a78b7d', fontSize: '11px', textAlign: 'center', margin: '10px 0 0 0' }}>
-                Secure payment via Razorpay. We never share your data.
+                Check your spam folder if you don't see the email.
               </p>
             </div>
           </div>
