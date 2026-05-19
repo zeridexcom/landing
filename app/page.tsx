@@ -182,7 +182,7 @@ export default function Home() {
       {/* TopAppBar */}
       <header className="fixed top-0 w-full z-50 h-16 bg-surface/80 dark:bg-surface/80 backdrop-blur-lg shadow-xl hidden md:flex flex justify-between items-center px-gutter w-full max-w-7xl mx-auto">
         <div className="flex items-center gap-3">
-          <span className="material-symbols-outlined text-primary dark:text-primary hover:opacity-80 transition-opacity scale-95 active:scale-90 transition-transform cursor-pointer">bolt</span>
+          <img src="/logo.png" alt="Edufast" className="h-10 w-auto" />
           <h1 className="font-display-xl text-primary font-extrabold tracking-tighter text-headline-lg-mobile md:text-headline-lg">Edufast Mega Combo</h1>
         </div>
         <div className="flex items-center gap-2">
@@ -193,7 +193,7 @@ export default function Home() {
       {/* Mobile Top Bar */}
       <div className="fixed top-0 w-full z-50 h-16 bg-surface/90 backdrop-blur-md shadow-md md:hidden flex justify-between items-center px-4">
         <div className="flex items-center gap-2">
-          <span className="material-symbols-outlined text-primary">bolt</span>
+          <img src="/logo.png" alt="Edufast" className="h-8 w-auto" />
           <span className="font-display-xl text-primary font-extrabold tracking-tighter text-headline-lg-mobile">Edufast</span>
         </div>
         <div className="flex items-center gap-2 bg-surface-container px-3 py-1 rounded-full border border-urgency-red/30">
@@ -556,7 +556,7 @@ export default function Home() {
       <footer className="mt-16 bg-surface-container-lowest py-8 border-t border-surface-container-high w-full px-gutter">
         <div className="max-w-container-max mx-auto flex flex-col items-center text-center gap-4">
           <div className="flex items-center gap-2">
-            <span className="material-symbols-outlined text-primary">bolt</span>
+            <img src="/logo.png" alt="Edufast" className="h-10 w-auto" />
             <span className="font-display-xl text-primary font-extrabold tracking-tighter text-headline-lg-mobile">Edufast</span>
           </div>
           <p className="font-body-md text-body-md text-on-surface-variant max-w-md">Empowering ambitious learners with high-quality, actionable resources for professional growth.</p>
