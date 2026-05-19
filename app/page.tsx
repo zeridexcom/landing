@@ -83,7 +83,11 @@ export default function Home() {
   const [email, setEmail] = useState('');
   const [showEmailInput, setShowEmailInput] = useState(false);
   const [time, setTime] = useState(299);
-  const [spotsLeft] = useState(() => Math.floor(Math.random() * 15) + 5);
+  const [spotsLeft, setSpotsLeft] = useState(12);
+
+  useEffect(() => {
+    setSpotsLeft(Math.floor(Math.random() * 15) + 5);
+  }, []);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -225,7 +229,7 @@ export default function Home() {
             <span className="material-symbols-outlined">shopping_cart</span>
             {loading ? 'Processing...' : 'CLAIM OFFER NOW - ₹1,499'}
           </button>
-          <p className="text-urgency-red font-bold text-sm animate-pulse">Only {spotsLeft} spots left at this price!</p>
+          <p className="text-urgency-red font-bold text-sm animate-pulse" suppressHydrationWarning>Only {spotsLeft} spots left at this price!</p>
         </section>
 
         {/* Features Grid */}
