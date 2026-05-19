@@ -210,17 +210,6 @@ export default function Home() {
             <span className="font-price-display text-price-display text-primary-container">₹1,499</span>.
           </p>
 
-          {showEmailInput && (
-            <input
-              type="email"
-              placeholder="Enter your email to continue"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full md:w-auto min-w-[300px] px-4 py-3 rounded-lg bg-surface-container border border-outline text-on-surface placeholder-outline focus:outline-none focus:border-primary"
-              required
-            />
-          )}
-
           <button
             onClick={handlePayment}
             disabled={loading}
@@ -283,17 +272,6 @@ export default function Home() {
             <span className="font-price-display text-price-display text-gold-gradient-start">₹1,499</span>
           </div>
           <p className="text-on-surface-variant text-sm">You save ₹1,98,501 (99% off)</p>
-
-          {showEmailInput && (
-            <input
-              type="email"
-              placeholder="Enter your email to continue"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full md:w-auto min-w-[300px] px-4 py-3 rounded-lg bg-surface-container border border-outline text-on-surface placeholder-outline focus:outline-none focus:border-primary"
-              required
-            />
-          )}
 
           <button
             onClick={handlePayment}
@@ -446,6 +424,117 @@ export default function Home() {
 
       {/* Exit Intent Popup */}
       <ExitPopup />
+
+      {/* Email Popup Modal */}
+      {showEmailInput && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 99999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '16px',
+            background: 'rgba(0,0,0,0.7)',
+            backdropFilter: 'blur(4px)',
+          }}
+          onClick={() => setShowEmailInput(false)}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: '#141b2b',
+              border: '1px solid #2e3545',
+              borderRadius: '16px',
+              maxWidth: '400px',
+              width: '100%',
+              overflow: 'hidden',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+            }}
+          >
+            {/* Header */}
+            <div style={{
+              background: 'linear-gradient(135deg, #F97316, #FBBF24)',
+              padding: '20px',
+              textAlign: 'center',
+            }}>
+              <p style={{ color: '#552100', fontSize: '18px', fontWeight: '800', margin: 0 }}>
+                Almost There!
+              </p>
+            </div>
+
+            {/* Body */}
+            <div style={{ padding: '20px' }}>
+              {/* Warning */}
+              <div style={{
+                background: 'rgba(239, 68, 68, 0.1)',
+                border: '1px solid rgba(239, 68, 68, 0.3)',
+                borderRadius: '10px',
+                padding: '12px',
+                marginBottom: '16px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+              }}>
+                <span className="material-symbols-outlined" style={{ color: '#ef4444', fontSize: '20px' }}>warning</span>
+                <p style={{ color: '#fca5a5', fontSize: '13px', margin: 0, lineHeight: '1.4' }}>
+                  The bundle download link will be sent to your email. Please enter a valid email address.
+                </p>
+              </div>
+
+              {/* Email input */}
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                autoFocus
+                style={{
+                  width: '100%',
+                  padding: '14px 16px',
+                  borderRadius: '10px',
+                  border: '1px solid #2e3545',
+                  background: '#0c1322',
+                  color: '#dce2f7',
+                  fontSize: '16px',
+                  marginBottom: '12px',
+                  outline: 'none',
+                  boxSizing: 'border-box',
+                }}
+              />
+
+              {/* Submit button */}
+              <button
+                onClick={handlePayment}
+                disabled={loading || !email}
+                style={{
+                  width: '100%',
+                  padding: '14px',
+                  borderRadius: '10px',
+                  border: 'none',
+                  background: (loading || !email) ? '#555' : 'linear-gradient(to right, #F97316, #FBBF24)',
+                  color: '#552100',
+                  fontSize: '16px',
+                  fontWeight: '700',
+                  cursor: (loading || !email) ? 'not-allowed' : 'pointer',
+                  boxShadow: '0 4px 14px rgba(249,115,22,0.4)',
+                  opacity: (loading || !email) ? 0.6 : 1,
+                }}
+              >
+                {loading ? 'Processing...' : 'Proceed to Payment - ₹1,499'}
+              </button>
+
+              <p style={{ color: '#a78b7d', fontSize: '11px', textAlign: 'center', margin: '10px 0 0 0' }}>
+                Secure payment via Razorpay. We never share your data.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="mt-16 bg-surface-container-lowest py-8 border-t border-surface-container-high w-full px-gutter">
