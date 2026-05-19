@@ -83,6 +83,7 @@ export default function Home() {
   const [email, setEmail] = useState('');
   const [showEmailInput, setShowEmailInput] = useState(false);
   const [time, setTime] = useState(299);
+  const [spotsLeft] = useState(() => Math.floor(Math.random() * 15) + 5);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -91,7 +92,14 @@ export default function Home() {
     document.body.appendChild(script);
 
     const timer = setInterval(() => {
-      setTime((prev) => (prev > 0 ? prev - 1 : 0));
+      setTime((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          window.location.href = 'https://edufast.in';
+          return 0;
+        }
+        return prev - 1;
+      });
     }, 1000);
     return () => clearInterval(timer);
   }, []);
@@ -217,7 +225,7 @@ export default function Home() {
             <span className="material-symbols-outlined">shopping_cart</span>
             {loading ? 'Processing...' : 'CLAIM OFFER NOW - ₹1,499'}
           </button>
-          <p className="text-urgency-red font-bold text-sm animate-pulse">Only {Math.floor(Math.random() * 15) + 5} spots left at this price!</p>
+          <p className="text-urgency-red font-bold text-sm animate-pulse">Only {spotsLeft} spots left at this price!</p>
         </section>
 
         {/* Features Grid */}
