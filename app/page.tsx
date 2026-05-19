@@ -125,9 +125,9 @@ export default function Home() {
 
       const { orderId } = await orderResponse.json();
 
-      const options = {
+const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-amount: 149900,
+        amount: 149900,
         currency: 'INR',
         name: 'Edufast Mega Combo Bundle',
         description: '1000+ Courses, 30,000+ Assets, Lifetime Access',
