@@ -60,7 +60,7 @@ const testimonials = [
     name: 'Amit Kumar',
     role: 'Content Creator',
     city: 'Bangalore',
-    text: 'The resume templates helped me land my dream job. Best ₹1 I ever spent.',
+    text: 'The resume templates helped me land my dream job. Best ₹499 I ever spent.',
     earning: '₹8 LPA Job',
   },
   {
@@ -129,14 +129,14 @@ export default function MegaBonusBundle() {
       const orderResponse = await fetch('/api/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: 100, currency: 'INR', email: email || '' }),
+        body: JSON.stringify({ amount: 49900, currency: 'INR', email: email || '' }),
       });
 
       const { orderId } = await orderResponse.json();
 
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount: 100,
+        amount: 49900,
         currency: 'INR',
         name: 'Edufast',
         description: 'Mega Bonus Bundle - Canva, Reels, Resume Templates & More',
@@ -268,7 +268,7 @@ export default function MegaBonusBundle() {
           {/* Price */}
           <div className="flex items-center gap-3">
             <span className="text-on-surface-variant line-through text-xl opacity-60">₹624</span>
-            <span className="font-price-display text-price-display text-primary-container">₹1</span>
+            <span className="font-price-display text-price-display text-primary-container">₹499</span>
           </div>
 
           <button
@@ -277,7 +277,7 @@ export default function MegaBonusBundle() {
             className="buy-button w-full md:w-auto min-h-[56px] px-8 py-4 bg-gradient-to-r from-gold-gradient-start to-gold-gradient-end rounded-full font-label-bold text-label-bold text-on-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] shadow-[0_4px_14px_rgba(249,115,22,0.4)] flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <span className="material-symbols-outlined">shopping_cart</span>
-            {loading ? 'Processing...' : 'Buy for ₹1'}
+            {loading ? 'Processing...' : 'Buy for ₹499'}
           </button>
           {paymentStatus === 'success' && (
             <div className="w-full md:w-auto px-4 py-3 rounded-lg bg-green-600 text-white text-center font-semibold">
@@ -351,7 +351,7 @@ export default function MegaBonusBundle() {
 
           <div className="flex items-center justify-center gap-4 mb-6">
             <span className="text-on-surface-variant line-through text-xl opacity-60">₹624</span>
-            <span className="font-price-display text-price-display text-gold-gradient-start">₹1</span>
+            <span className="font-price-display text-price-display text-gold-gradient-start">₹499</span>
           </div>
 
           <div className="flex justify-center">
@@ -361,7 +361,7 @@ export default function MegaBonusBundle() {
               className="buy-button w-full md:w-auto min-h-[56px] px-8 py-4 bg-gradient-to-r from-gold-gradient-start to-gold-gradient-end rounded-full font-label-bold text-label-bold text-on-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] shadow-[0_4px_14px_rgba(249,115,22,0.4)] flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span className="material-symbols-outlined">bolt</span>
-              {loading ? 'Processing...' : 'Buy for ₹1'}
+              {loading ? 'Processing...' : 'Buy for ₹499'}
             </button>
           </div>
           <p className="font-body-md text-body-md text-urgency-red mt-4 text-center">Hurry! Offer ends in {String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}</p>
@@ -499,7 +499,7 @@ export default function MegaBonusBundle() {
             className="buy-button w-full md:w-auto min-h-[56px] px-12 py-4 bg-gradient-to-r from-gold-gradient-start to-gold-gradient-end rounded-full font-label-bold text-label-bold text-on-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] shadow-[0_4px_14px_rgba(249,115,22,0.4)] flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed mx-auto"
           >
             <span className="material-symbols-outlined">rocket_launch</span>
-            {loading ? 'Processing...' : 'GET INSTANT ACCESS - ₹1'}
+            {loading ? 'Processing...' : 'GET INSTANT ACCESS - ₹499'}
           </button>
         </section>
       </main>
@@ -690,7 +690,7 @@ export default function MegaBonusBundle() {
         >
           <span className="material-symbols-outlined">shopping_cart</span>
           <span className="font-label-bold text-label-bold">
-            {loading ? 'Processing...' : 'Buy - ₹1'}
+            {loading ? 'Processing...' : 'Buy - ₹499'}
           </span>
         </div>
       </nav>
