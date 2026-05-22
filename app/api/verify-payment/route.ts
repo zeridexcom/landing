@@ -4,7 +4,7 @@ import { sendConfirmationEmail } from '@/lib/email';
 
 export async function POST(request: Request) {
   try {
-    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, email } =
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, email, driveLink } =
       await request.json();
 
     // Verify signature
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     }
 
     // Send confirmation email
-    await sendConfirmationEmail(email, razorpay_payment_id, 0);
+    await sendConfirmationEmail(email, razorpay_payment_id, 0, driveLink);
 
     return NextResponse.json({
       success: true,

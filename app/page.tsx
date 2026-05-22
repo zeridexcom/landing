@@ -217,7 +217,7 @@ const options = {
             <img
               alt="Hero Image"
               className="w-full h-auto object-cover aspect-video"
-              src="https://lh3.googleusercontent.com/aida/ADBb0uhPCGfZFFBz6-0XuGkc_w90EQL2RsN6yGvmrpm-8545dbrmqQf_tUKb-TQakAkGuzRTGz-hRbbPn3g5tohrtO63GtbzDRot-szI93V2S7JL75tPfzF_UrW1szJyP3E7moqNMf9vwJ1g6LjYiYOVubKmlLOWXnuUOvvo-Q753zEnaeFdxklr5VrVRkLzoxwmdkDmspRBj08A-3WR8Ja284qR9-QPN0D1pIXg1RTauJlhgL7UrLNdOgdx2hs"
+              src="/hero-main.jpeg"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
           </div>

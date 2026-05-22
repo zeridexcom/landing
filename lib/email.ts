@@ -3,9 +3,10 @@ import resend from './resend';
 export async function sendConfirmationEmail(
   to: string,
   paymentId: string,
-  amount: number
+  amount: number,
+  driveLink?: string
 ) {
-  const driveLink = process.env.GOOGLE_DRIVE_ACCESS_LINK!;
+  const link = driveLink || process.env.GOOGLE_DRIVE_ACCESS_LINK!;
   const formattedAmount = (amount / 100).toFixed(2);
 
   await resend.emails.send({
@@ -21,7 +22,7 @@ export async function sendConfirmationEmail(
           <p><strong>Amount:</strong> ₹${formattedAmount}</p>
         </div>
         <p>Click the button below to access your bundle:</p>
-        <a href="${driveLink}" style="display: inline-block; background: #10b981; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; margin: 20px 0;">
+        <a href="${link}" style="display: inline-block; background: #10b981; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; margin: 20px 0;">
           Access Your Bundle
         </a>
         <p style="color: #6b7280; font-size: 14px; margin-top: 30px;">

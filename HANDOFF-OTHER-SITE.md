@@ -230,6 +230,7 @@ NEXT_PUBLIC_RAZORPAY_KEY_ID=rzp_test_xxxxxxxxxxxx
 RESEND_API_KEY=re_xxxxxxxxxxxx
 SENDER_EMAIL=onboarding@resend.dev
 GOOGLE_DRIVE_ACCESS_LINK=https://drive.google.com/your-file-link
+# For per-product links, pass driveLink in the verify-payment request body instead of using env var
 ```
 
 ## FRONTEND PAYMENT FLOW (add to any page component)

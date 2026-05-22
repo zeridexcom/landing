@@ -173,7 +173,11 @@ export default function MegaBonusBundle() {
       const verifyResponse = await fetch('/api/verify-payment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...paymentData, email }),
+        body: JSON.stringify({
+          ...paymentData,
+          email,
+          driveLink: 'https://drive.google.com/drive/folders/17PrXJbOW5seRbitAYzrTIAfnh-iSRaFt?usp=drive_link',
+        }),
       });
 
       const result = await verifyResponse.json();
